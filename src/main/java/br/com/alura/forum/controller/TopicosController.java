@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.alura.forum.controller.dto.TopicoDto;
 import br.com.alura.forum.model.Curso;
 import br.com.alura.forum.model.Topico;
 
@@ -13,10 +14,10 @@ import br.com.alura.forum.model.Topico;
 public class TopicosController {
 
 	@GetMapping("/topicos")
-	public List<Topico> findAll() {
+	public List<TopicoDto> findAll() {
 		Topico topico = new Topico("Dúvida", "Dúvida com Spring", new Curso("Spring", "Programação"));
 
-		return Arrays.asList(topico, topico, topico);
+		return TopicoDto.converter(Arrays.asList(topico, topico, topico));
 	}
 
 }
