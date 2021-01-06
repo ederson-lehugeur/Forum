@@ -16,9 +16,16 @@ public class TopicosController {
 	@Autowired
 	TopicoRepository topicoRepository;
 
-	@GetMapping("/topicos")
+	/*@GetMapping("/topicos")
 	public List<TopicoDto> findAll() {
 		List<Topico> topicos = topicoRepository.findAll();
+
+		return TopicoDto.converter(topicos);
+	}*/
+
+	@GetMapping("/topicos")
+	public List<TopicoDto> find(String nomeCurso) {
+		List<Topico> topicos = topicoRepository.findByCursoNome(nomeCurso);
 
 		return TopicoDto.converter(topicos);
 	}
