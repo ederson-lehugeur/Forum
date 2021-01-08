@@ -8,12 +8,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.alura.forum.dto.TopicoDetalhesDto;
 import br.com.alura.forum.dto.TopicoDto;
 import br.com.alura.forum.form.TopicoForm;
 import br.com.alura.forum.model.Topico;
@@ -31,10 +33,23 @@ public class TopicosController {
 	private CursoRepository cursoRepository;
 
 	@GetMapping
-	public List<TopicoDto> find(String nomeCurso) {
-		List<Topico> topicos = topicoRepository.findByCursoNome(nomeCurso);
+	public List<TopicoDto> findAll(String nomeCurso) {
+		List<Topico> topicos;
+
+		if (nomeCurso != null) {
+			topicos = topicoRepository.findByCursoNome(nomeCurso);
+		} else {
+			topicos = topicoRepository.findAll();
+		}
 
 		return TopicoDto.converter(topicos);
+	}
+
+	@GetMapping("/{id}")
+	public TopicoDetalhesDto findById(@PathVariable Long id) {
+		Topico topico = topicoRepository.getOne(id);
+
+		return new TopicoDetalhesDto(topico);
 	}
 
 	@PostMapping
