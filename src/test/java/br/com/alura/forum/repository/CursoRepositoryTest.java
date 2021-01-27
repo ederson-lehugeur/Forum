@@ -1,6 +1,6 @@
 package br.com.alura.forum.repository;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -31,15 +31,15 @@ class CursoRepositoryTest {
 		em.persist(html5);
 
 		Curso curso = cursoRepository.findByNome(nomeCurso);
-		Assert.assertNotNull(curso);
-		Assert.assertEquals(nomeCurso, curso.getNome());
+		Assertions.assertNotNull(curso);
+		Assertions.assertEquals(nomeCurso, curso.getNome());
 	}
 
 	@Test
 	void naoDeveCarregarUmCursoCujoNomeNaoEstejaCadastrado() {
 		String nomeCurso = "JPA";
 		Curso curso = cursoRepository.findByNome(nomeCurso);
-		Assert.assertNull(curso);
+		Assertions.assertNull(curso);
 	}
 
 }
